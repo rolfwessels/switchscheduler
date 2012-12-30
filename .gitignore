@@ -4,6 +4,8 @@
 *.user
 *.suo
 *.opensdf
+*.sdf
 ipch
 */temp/*
 kak
+*/Visual Micro/*

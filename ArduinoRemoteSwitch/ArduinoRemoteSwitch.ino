@@ -9,27 +9,21 @@
 #include "MemoryFree.h"
 #include "Credentials.h"
 
-// Arduino       _wiflySerial
-//  2 - receive  TX   (Send from _wiflySerial, Receive to Arduino)
-//  3 - send     RX   (Send from Arduino, Receive to _wiflySerial) 
-WiFlySerial _wiflySerial(2,3); 
-
-char chOut; 
-
 #define REQUEST_BUFFER_SIZE 150
 #define HTTP_RESPONSE_BUFFER_SIZE 200
 
 #define DAYS 7
 #define SCHEDULEBLOCKS 24
 #define HOURFALSE 255
-#define SHEDULE_DOWNLOAD_SCHEDULE 300
+#define SHEDULE_DOWNLOAD_SCHEDULE 20//300
 #define SHEDULE_CHECK_SCHEDULE 5
 
 #define SettingsFullUrl "https://dl.dropbox.com/u/1343111/ServerTimer/autoSwitchSettings.txt"
-//#define SETTINGS_HOST "dl.dropbox.com"
-#define SETTINGS_HOST "23.21.195.136"
+#define SETTINGS_HOST "dl.dropbox.com"
+//#define SETTINGS_HOST "23.21.195.136"
 #define SettingsUrl "/u/1343111/ServerTimer/autoSwitchSettings.txt"
-
+#define SERVO_LOW 100
+#define SERVO_HIGH 150
 
 char bufRequest[REQUEST_BUFFER_SIZE];
 char bufResponse[HTTP_RESPONSE_BUFFER_SIZE];
@@ -40,15 +34,25 @@ byte _onHour = HOURFALSE;
 String _mac; 
 unsigned long _nextScheduleCheck = 0;
 unsigned long _nextDownload = 0;
-int led = 13;
+int pinLed = 13;
+int pinServo = 12;
+// Arduino       _wiflySerial
+//  2 - receive  TX   (Send from _wiflySerial, Receive to Arduino)
+//  3 - send     RX   (Send from Arduino, Receive to _wiflySerial) 
+WiFlySerial _wiflySerial(2,3); 
+Servo _servo; 
+char chOut; 
 
 
 
 // the setup routine runs once when you press reset:
 void setup() {
 	Serial.begin(9600);
-	pinMode(led, OUTPUT);
+	pinMode(pinLed, OUTPUT);
+	_servo.attach(pinServo); 
+	switchServo(false);
 }
+
 
 // the loop routine runs over and over again forever:
 void loop() {
@@ -74,7 +78,6 @@ void loop() {
   }
     
   delay(100);
-  //Alarm.delay(100);
 } 
 
 
@@ -89,12 +92,16 @@ void downloadNewSchedule() {
 void switchServo(bool value) {
 	if (_servoState != value) {
 		_servoState = value;
+		
 		if (_servoState) {
-			digitalWrite(led, HIGH);
+			digitalWrite(pinLed, HIGH);
+			_servo.write(SERVO_LOW); 
 		}
 		else {
-			digitalWrite(led, LOW);
+			digitalWrite(pinLed, LOW);
+			_servo.write(SERVO_HIGH); 
 		}
+		
 		Serial << "Servo is now " << _servoState << endl;
 	}
 }
