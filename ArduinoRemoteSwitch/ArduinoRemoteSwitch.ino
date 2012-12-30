@@ -102,6 +102,8 @@ void switchServo(bool value) {
 		else {
 			digitalWrite(pinLed, LOW);
 			_servo.write(SERVO_HIGH); 
+			// reset the on hour value so that it does not repeat daily
+			_onHour = HOURFALSE;
 		}
 		
 		Serial << "Servo is now " << _servoState << endl;
