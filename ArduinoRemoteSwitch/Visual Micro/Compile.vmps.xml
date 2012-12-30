@@ -1,0 +1,45 @@
+<VisualMicro>
+  <Program Name="ArduinoRemoteSwitch" Ext=".ino" Location="C:\Dev\Projects\Home\lazycowprojects\SwitchTimer\ArduinoRemoteSwitch">
+    <Compile CompilerErrors="0" ConfigurationName="Debug" StopOnError="False" OptimiseLibs="True" OptimiseCore="True" BuildPath="C:\Users\Rolf\AppData\Local\VMicro\Arduino\Builds\ArduinoRemoteSwitch\uno" IncludeDebug="0" IncludesDebug="0" SketchName="ArduinoRemoteSwitch" IsCompiled="1" />
+    <Platform Name="Arduino">
+      <Board Name="uno" Description="Arduino Uno" CoreFolder="C:\Dev\Software\arduino-1.0.1\hardware\arduino\cores\arduino" VariantFullPath="C:\Dev\Software\arduino-1.0.1\hardware\arduino\variants\standard" />
+    </Platform>
+    <VCCodeModel>
+      <VCCodeMacros>
+        <VCCodeMacro Name="__CREDENTIALS_H__" Value="" />
+        <VCCodeMacro Name="ARDUINO" Value="101" />
+        <VCCodeMacro Name="__AVR_ATmega328P__" Value="" />
+        <VCCodeMacro Name="MEMORY_FREE_H" Value="" />
+        <VCCodeMacro Name="F_CPU" Value="16000000L" />
+        <VCCodeMacro Name="__AVR__" Value="" />
+        <VCCodeMacro Name="__cplusplus" Value="" />
+        <VCCodeMacro Name="__attribute__" Value="" />
+        <VCCodeMacro Name="__inline__" Value="" />
+        <VCCodeMacro Name="__asm__" Value="" />
+        <VCCodeMacro Name="__extension__" Value="" />
+        <VCCodeMacro Name="__ATTR_PURE__" Value="" />
+        <VCCodeMacro Name="__ATTR_CONST__" Value="" />
+        <VCCodeMacro Name="__inline__" Value="" />
+        <VCCodeMacro Name="__asm__" Value="" />
+        <VCCodeMacro Name="__volatile__" Value="" />
+        <VCCodeMacro Name="__builtin_va_list" Value="" />
+        <VCCodeMacro Name="__builtin_va_start" Value="" />
+        <VCCodeMacro Name="__builtin_va_end" Value="" />
+        <VCCodeMacro Name="__DOXYGEN__" Value="" />
+        <VCCodeMacro Name="prog_void" Value="" />
+        <VCCodeMacro Name="REQUEST_BUFFER_SIZE" Value="180" />
+        <VCCodeMacro Name="PGM_VOID_P" Value="int" />
+        <VCCodeMacro Name="HEADER_BUFFER_SIZE" Value="150" />
+        <VCCodeMacro Name="NOINLINE" Value="__attribute__((noinline))" />
+        <VCCodeMacro Name="BODY_BUFFER_SIZE" Value="100" />
+        <VCCodeMacro Name="TEMP_BUFFER_SIZE" Value="100" />
+        <VCCodeMacro Name="SettingsFullUrl" Value="&quot;https://dl.dropbox.com/u/1343111/ServerTimer/autoSwitchSettings.txt&quot;" />
+        <VCCodeMacro Name="SETTINGS_HOST" Value="&quot;dl.dropbox.com&quot;" />
+        <VCCodeMacro Name="SettingsUrl" Value="&quot;/u/1343111/ServerTimer/autoSwitchSettings.txt&quot;" />
+      </VCCodeMacros>
+      <VCCodeVariables>
+        <VCCodeVariable Name="passphrase" />
+      </VCCodeVariables>
+    </VCCodeModel>
+  </Program>
+</VisualMicro>

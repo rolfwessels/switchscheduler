@@ -1,0 +1,9 @@
+#  IDE specific      #
+#####################
+*.ncrunchsolution
+*.user
+*.suo
+*.opensdf
+ipch
+*/temp/*
+kak
