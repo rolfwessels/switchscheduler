@@ -1,4 +1,3 @@
-#include <aJSON.h>
 #include <Servo.h> 
 #include <Arduino.h>
 #include <Time.h>
@@ -7,10 +6,9 @@
 #include <PString.h>
 #include <WiFlySerial.h>
 #include <String.h>
-#include <TimeAlarms.h>
+//#include <TimeAlarms.h>
 #include "MemoryFree.h"
 #include "Credentials.h"
-
 
 // Arduino       WiFly
 //  2 - receive  TX   (Send from Wifly, Receive to Arduino)
@@ -23,6 +21,7 @@ char chOut;
 #define HEADER_BUFFER_SIZE 150 
 #define BODY_BUFFER_SIZE 100
 #define HTTP_RESPONSE_BUFFER_SIZE 400
+
 #define DAYS 7
 #define SCHEDULEBLOCKS 24
 #define HOURFALSE 255
@@ -50,15 +49,18 @@ char* onoff[2] = {"off",    "on"};
 // the setup routine runs once when you press reset:
 void setup() {
 	Serial.begin(9600);
-	Serial << F("Free memory:") << freeMemory() << endl;
 	connectToWiFly();
-	Serial << F("Free memory:") << freeMemory() << endl;
-	DownloadNewSchedule();
-	Serial << F("Free memory:") << freeMemory() << endl;
-	Alarm.timerRepeat(SHEDULE_DOWNLOAD_SCHEDULE, DownloadNewSchedule);
-	Serial << F("Free memory:") << freeMemory() << endl;
-	Alarm.timerRepeat(SHEDULE_CHECK_SCHEDULE, CheckScheduleAndUpdateSwitch); 
-	Serial << F("Free memory:") << freeMemory() << endl;
+
+	char* page = getHttp(SETTINGS_HOST,SettingsUrl);
+	//char* page = "{00001010100000110000000000000000100000000000000000000000100000000000000000000000100000000000000000000000100000000000000000000000100000000000000000000000100000000000000000";
+	Serial << "page" << page << endl;
+
+	//DownloadNewSchedule();
+	//Serial << F("Free memory:") << freeMemory() << endl;
+	///Alarm.timerRepeat(SHEDULE_DOWNLOAD_SCHEDULE, DownloadNewSchedule);
+	///Serial << F("Free memory:") << freeMemory() << endl;
+	///Alarm.timerRepeat(SHEDULE_CHECK_SCHEDULE, CheckScheduleAndUpdateSwitch); 
+	//Serial << F("Free memory:") << freeMemory() << endl;
 }
 
 // the loop routine runs over and over again forever:
@@ -70,7 +72,7 @@ void loop() {
     WiFly.write( (chOut = Serial.read()) );
     Serial.write (chOut);
   }
-  Alarm.delay(100);
+  //Alarm.delay(100);
 } 
 
 void CheckScheduleAndUpdateSwitch() {
@@ -80,24 +82,25 @@ void CheckScheduleAndUpdateSwitch() {
 }
 
 void DownloadNewSchedule() {
-	
-	//char* page = getHttp(SETTINGS_HOST,SettingsUrl);
-	char* page = "{00001010100000110000000000000000100000000000000000000000100000000000000000000000100000000000000000000000100000000000000000000000100000000000000000000000100000000000000000";
+	Serial << "DownloadNewSchedule " <<  F("Free memory:") << freeMemory() << endl;
+	char* page = getHttp(SETTINGS_HOST,SettingsUrl);
+	//char* page = "{00001010100000110000000000000000100000000000000000000000100000000000000000000000100000000000000000000000100000000000000000000000100000000000000000000000100000000000000000";
 	Serial << "page" << page << endl;
 	ParseSchedule(page);
-	Serial << F("Free memory:") << freeMemory() << endl;
+	
 	CheckSchedule();
 	CheckScheduleAndUpdateSwitch();
 }
 
 void switchServo(bool value) {
 	if (_servoState != value) {
-		Serial << "Servo is now " << onoff[_servoState] << endl;
 		_servoState = value;
+		Serial << "Servo is now " << onoff[_servoState] << endl;
 	}
 }
 
 void CheckSchedule() {
+	Serial << "CheckSchedule " <<  F("Free memory:") << freeMemory() << endl;
 	bool hOn;
 	for (byte day = 0; day < DAYS ; day++) {
 		for (byte hour = 0; hour < SCHEDULEBLOCKS ; hour++) {
@@ -110,6 +113,7 @@ void CheckSchedule() {
 }
 
 void ParseSchedule(char* scheduleString) {
+	Serial << "ParseSchedule " <<  F("Free memory:") << freeMemory() << endl;
 	byte pointer = 0; // ship first char
 	if (scheduleString[pointer++] != '{') {
 		Serial << "Invalid scheduleString" << endl;
@@ -200,7 +204,8 @@ void ConnectToWiFlyAndGetTime() {
 }
 
 void  setNTPAndSetTheCurrentTime() {
-  Serial << F("Connect to ntp server: ") << ntp_server << endl;
+  Serial << "setNTPAndSetTheCurrentTime " << ntp_server <<  F("Free memory:") << freeMemory() << endl;
+  
   WiFly.setNTP(ntp_server); 
   WiFly.setNTP_Update_Frequency("15");
   WiFly.setNTP_UTC_Offset(2);
