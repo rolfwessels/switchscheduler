@@ -26,10 +26,14 @@ extern "C" void __cxa_pure_virtual() {}
 
 //already defined in arduno.h
 //already defined in arduno.h
-void InitSchedule();
+void CheckScheduleAndUpdateSwitch();
+void DownloadNewSchedule();
+void switchServo(bool value);
 void CheckSchedule();
 void ParseSchedule(char* scheduleString);
 bool ParseScheduleChar(char* scheduleString,byte pointer);
+void putSchedule(byte day, byte hour ,bool value);
+bool getSchedule(byte day, byte hour );
 void connectToWiFly();
 void fullSetup();
 void ConnectToWiFlyAndGetTime();

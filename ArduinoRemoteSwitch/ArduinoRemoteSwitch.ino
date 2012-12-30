@@ -7,6 +7,7 @@
 #include <PString.h>
 #include <WiFlySerial.h>
 #include <String.h>
+#include <TimeAlarms.h>
 #include "MemoryFree.h"
 #include "Credentials.h"
 
@@ -25,13 +26,15 @@ char chOut;
 #define DAYS 7
 #define SCHEDULEBLOCKS 24
 #define HOURFALSE 255
+#define SHEDULE_DOWNLOAD_SCHEDULE 600
+#define SHEDULE_CHECK_SCHEDULE 5
 
 char bufRequest[REQUEST_BUFFER_SIZE];
 char bufHeader[HEADER_BUFFER_SIZE];
 char bufBody[BODY_BUFFER_SIZE];
 char bufResponse[HTTP_RESPONSE_BUFFER_SIZE];
 
-bool* _daysSchedule[DAYS];
+bool _daysSchedule[DAYS*SCHEDULEBLOCKS] = {false};
 bool _servoState = false;
 byte _onHour = HOURFALSE;
 String _mac; 
@@ -42,65 +45,66 @@ String _mac;
 #define SETTINGS_HOST "107.20.162.164"
 #define SettingsUrl "/u/1343111/ServerTimer/autoSwitchSettings.txt"
 char* dayNames[DAYS] = {"Sunday",    "Monday",    "Tuesday",    "Wednesday",    "Thursday",    "Friday",    "Saturday"};
+char* onoff[2] = {"off",    "on"};
 
 // the setup routine runs once when you press reset:
 void setup() {
 	Serial.begin(9600);
-	InitSchedule();
-	//connectToWiFly();
-	
-	//char* page = getHttp(SETTINGS_HOST,SettingsUrl);
-	char* page = "{00001010100000000000000000000000100000000000000000000000100000000000000000000000100000000000000000000000100000000000000000000000100000000000000000000000100000000000000000";
-	Serial << "page" << page << endl;
-	ParseSchedule(page);
-	
 	Serial << F("Free memory:") << freeMemory() << endl;
-	CheckSchedule();
 	connectToWiFly();
+	Serial << F("Free memory:") << freeMemory() << endl;
+	DownloadNewSchedule();
+	Serial << F("Free memory:") << freeMemory() << endl;
+	Alarm.timerRepeat(SHEDULE_DOWNLOAD_SCHEDULE, DownloadNewSchedule);
+	Serial << F("Free memory:") << freeMemory() << endl;
+	Alarm.timerRepeat(SHEDULE_CHECK_SCHEDULE, CheckScheduleAndUpdateSwitch); 
+	Serial << F("Free memory:") << freeMemory() << endl;
 }
 
 // the loop routine runs over and over again forever:
 void loop() {
-  
   while(WiFly.available() > 0) {
     Serial.write(WiFly.read());
-  }
-  
+  }  
   if(Serial.available()) { // Outgoing data
     WiFly.write( (chOut = Serial.read()) );
     Serial.write (chOut);
   }
-  // check the date and set the _servoState
-  Serial << "hour():" << hour() << endl;
-  Serial << "weekday()-1:" << weekday()-1 << endl;
-  Serial << "_onHour:" << _onHour << " - " << (_onHour == hour())  << endl;
-  bool* daySched = _daysSchedule[weekday()-1];
- // Serial << "_daysSchedule[weekday()-1]:" <<  daySched << endl;
-  Serial << "daySched[hour()]:" << daySched[hour()]  << endl;
-  bool isCurrentlyOn = _onHour == hour() || _daysSchedule[weekday()-1][hour()];
-
-  Serial << "Day:" <<dayNames[weekday()-1] << "[" << weekday()-1 << "] Hour:" << hour() << " IsOn:" << isCurrentlyOn  << endl;
-  
-  
-  delay(15000);
+  Alarm.delay(100);
 } 
 
-void InitSchedule() {
-	for (byte day = 0; day < DAYS ; day++) {
-		bool blocks[SCHEDULEBLOCKS] = {false};
-		_daysSchedule[day] = blocks;
+void CheckScheduleAndUpdateSwitch() {
+  bool isCurrentlyOn = _onHour == hour() || getSchedule(weekday()-1,hour());
+  Serial << "Day:" <<dayNames[weekday()-1] << "[" << weekday()-1 << "] Hour:" << hour() << " IsOn:" << isCurrentlyOn  << endl;
+  switchServo(isCurrentlyOn);
+}
+
+void DownloadNewSchedule() {
+	
+	//char* page = getHttp(SETTINGS_HOST,SettingsUrl);
+	char* page = "{00001010100000110000000000000000100000000000000000000000100000000000000000000000100000000000000000000000100000000000000000000000100000000000000000000000100000000000000000";
+	Serial << "page" << page << endl;
+	ParseSchedule(page);
+	Serial << F("Free memory:") << freeMemory() << endl;
+	CheckSchedule();
+	CheckScheduleAndUpdateSwitch();
+}
+
+void switchServo(bool value) {
+	if (_servoState != value) {
+		Serial << "Servo is now " << onoff[_servoState] << endl;
+		_servoState = value;
 	}
 }
 
 void CheckSchedule() {
-	
-	bool* list;
 	bool hOn;
-	for (byte day = 0; day < 1 ; day++) {
-		for (byte houra = 0; houra < SCHEDULEBLOCKS ; houra++) {
-			list = _daysSchedule[day];
-			hOn = list[houra];
-			Serial << "Day:" << dayNames[day]  << " Hour:" << houra << " On:" << hOn << endl;
+	for (byte day = 0; day < DAYS ; day++) {
+		for (byte hour = 0; hour < SCHEDULEBLOCKS ; hour++) {
+			hOn = getSchedule(day,hour);
+			if (hOn) {
+				Serial << "Day:" << dayNames[day]  << " Hour:" << hour << " On:" << hOn << endl;
+			}
 		}	
 	}
 }
@@ -123,16 +127,25 @@ void ParseSchedule(char* scheduleString) {
 	for (byte day = 0; day < DAYS ; day++) {
 		for (byte hour = 0; hour < SCHEDULEBLOCKS ; hour++) {
 			hOn = ParseScheduleChar(scheduleString,pointer++);
-			if (hOn) {
-				Serial << "Day:" << day  << " Hour:" << hour << " On:" << hOn << endl;
-			}
-			_daysSchedule[day][hour] = hOn;
+			//if (hOn) { Serial << "Day:" << day  << " Hour:" << hour << " On:" << hOn << endl; }
+			putSchedule(day, hour ,hOn);
 		}	
 	}
 }
 
 bool ParseScheduleChar(char* scheduleString,byte pointer) {
 	return scheduleString[pointer] == '1';
+}
+
+void putSchedule(byte day, byte hour ,bool value) {
+	byte pos = ((day) * SCHEDULEBLOCKS)  + hour;
+	//Serial << "putSchedule " << day << " " << hour << " " << value << " " << pos << endl;
+	_daysSchedule[pos]  = value;
+}
+
+bool getSchedule(byte day, byte hour ) {
+	byte pos = ((day) * SCHEDULEBLOCKS)  + hour;
+	return _daysSchedule[pos];
 }
 
 void connectToWiFly() {
@@ -142,10 +155,11 @@ void connectToWiFly() {
 	Serial << F("Starting WiFly ") <<  WiFly.getLibraryVersion(bufRequest, REQUEST_BUFFER_SIZE) << " on " << _mac  << endl;
 
 	ConnectToWiFlyAndGetTime();
+	setWelcomeText();
 	WiFly.closeConnection();
   
 	// clear out prior requests.
-	setWelcomeText();
+	
 	clearOutPriorRequests();
 	Serial << F("Free memory:") << freeMemory() << endl;
 }
