@@ -1,4 +1,4 @@
-#include <Servo.h> 
+#include <SoftwareServo.h>
 #include <Arduino.h> 
 #include <Time.h>
 #include <SoftwareSerial.h>
@@ -40,7 +40,7 @@ int pinServo = 12;
 //  2 - receive  TX   (Send from _wiflySerial, Receive to Arduino)
 //  3 - send     RX   (Send from Arduino, Receive to _wiflySerial) 
 WiFlySerial _wiflySerial(2,3); 
-Servo _servo; 
+SoftwareServo _servo; 
 char chOut; 
 
 
@@ -49,7 +49,8 @@ char chOut;
 void setup() {
 	Serial.begin(9600);
 	pinMode(pinLed, OUTPUT);
-	_servo.attach(pinServo); 
+	_servo.attach(pinServo);
+	_servo.setMaximumPulse(2200);
 	switchServo(false);
 }
 
@@ -77,7 +78,8 @@ void loop() {
 	  _nextScheduleCheck = millis() + (SHEDULE_CHECK_SCHEDULE * 1000);
   }
     
-  delay(100);
+  delay(50);
+  SoftwareServo::refresh();
 } 
 
 
