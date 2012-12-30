@@ -6,9 +6,8 @@ Remotely schedule a switch to go on and off
 Required libraries
 ===============
 
-The schedular makes use of the following libraries
-
-AJson
+The schedular makes use of the following libraries. These libraries are included in the source code.
+```AJson
 NewSoftSerial
 PString
 SoftwareServo
@@ -16,7 +15,7 @@ Streaming
 Time
 TimeAlarms
 WiFlySerial
-
+```
 
 
 
@@ -25,8 +24,8 @@ How to test your wifly connection using USB
 Connect to the wifly to USD
 Telnet to the wifly:
 Send commands:
+```
 $$$  //Responds with CMD
-
 scan 30 // scans for networks
 join # 3        // Join the third network
 
@@ -48,3 +47,4 @@ time
 show time
 save
 reboot
+```
