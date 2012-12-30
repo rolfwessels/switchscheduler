@@ -32,11 +32,11 @@
         <VCCodeMacro Name="HEADER_BUFFER_SIZE" Value="150" />
         <VCCodeMacro Name="NOINLINE" Value="__attribute__((noinline))" />
         <VCCodeMacro Name="BODY_BUFFER_SIZE" Value="100" />
-        <VCCodeMacro Name="HTTP_RESPONSE_BUFFER_SIZE" Value="400" />
+        <VCCodeMacro Name="HTTP_RESPONSE_BUFFER_SIZE" Value="200" />
         <VCCodeMacro Name="DAYS" Value="7" />
         <VCCodeMacro Name="SCHEDULEBLOCKS" Value="24" />
         <VCCodeMacro Name="HOURFALSE" Value="255" />
-        <VCCodeMacro Name="SHEDULE_DOWNLOAD_SCHEDULE" Value="600" />
+        <VCCodeMacro Name="SHEDULE_DOWNLOAD_SCHEDULE" Value="30" />
         <VCCodeMacro Name="SHEDULE_CHECK_SCHEDULE" Value="5" />
         <VCCodeMacro Name="SettingsFullUrl" Value="&quot;https://dl.dropbox.com/u/1343111/ServerTimer/autoSwitchSettings.txt&quot;" />
         <VCCodeMacro Name="SETTINGS_HOST" Value="&quot;107.20.162.164&quot;" />

@@ -26,23 +26,15 @@ extern "C" void __cxa_pure_virtual() {}
 
 //already defined in arduno.h
 //already defined in arduno.h
-void CheckScheduleAndUpdateSwitch();
-void DownloadNewSchedule();
+void parseSchedule(char* scheduleString);
 void switchServo(bool value);
-void CheckSchedule();
-void ParseSchedule(char* scheduleString);
-bool ParseScheduleChar(char* scheduleString,byte pointer);
+bool parseScheduleChar(char* scheduleString,byte pointer);
 void putSchedule(byte day, byte hour ,bool value);
 bool getSchedule(byte day, byte hour );
-void connectToWiFly();
-void fullSetup();
-void ConnectToWiFlyAndGetTime();
+void checkSchedule();
 void  setNTPAndSetTheCurrentTime();
 time_t getSyncProvider();
-void setWelcomeText();
-void clearOutPriorRequests();
 char* getHttp(char* host, char* url);
-void getConnectionInfo();
 
 #include "C:\Dev\Software\arduino-1.0.1\hardware\arduino\variants\standard\pins_arduino.h" 
 #include "C:\Dev\Software\arduino-1.0.1\hardware\arduino\cores\arduino\arduino.h"
