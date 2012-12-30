@@ -1,12 +1,11 @@
 #include <Servo.h> 
-#include <Arduino.h>
+#include <Arduino.h> 
 #include <Time.h>
 #include <SoftwareSerial.h>
 #include <Streaming.h>
 #include <PString.h>
 #include <WiFlySerial.h>
 #include <String.h>
-//#include <TimeAlarms.h>
 #include "MemoryFree.h"
 #include "Credentials.h"
 
@@ -28,7 +27,7 @@ char chOut;
 
 #define SettingsFullUrl "https://dl.dropbox.com/u/1343111/ServerTimer/autoSwitchSettings.txt"
 //#define SETTINGS_HOST "dl.dropbox.com"
-#define SETTINGS_HOST "107.20.162.164"
+#define SETTINGS_HOST "23.21.195.136"
 #define SettingsUrl "/u/1343111/ServerTimer/autoSwitchSettings.txt"
 
 
@@ -246,28 +245,25 @@ char* getHttp(char* host, char* url) {
   PString strRequest(bufRequest, REQUEST_BUFFER_SIZE);
   PString response(bufResponse, HTTP_RESPONSE_BUFFER_SIZE);
 
+  strRequest << F("GET ") << url << "?mac=" <<  _mac;
+  
+  Serial << F("GET request: http://") << host << strRequest << F(" Free memory:") << freeMemory() << endl;
   // Build GET expression
-  strRequest << F("GET ") << url << "?mac=" <<  _mac
-     << F(" HTTP/1.1") << "\n"
+  strRequest << F(" HTTP/1.1") << "\n"
      << F("Host: ") <<  host << "\n"
      << F("Connection: close") << "\n"
      << "\n\n";
-
-  // send data via request
-  // close connection
   
-  Serial << F("GET request:")  << strRequest <<  endl << F("RAM: ") << freeMemory() << endl;
-
   // Open connection, then sent GET Request, and display response.
   if (_wiflySerial.openConnection( host ) ) {
     
     _wiflySerial <<  (const char*) strRequest << endl; 
     
     // Show server response
-    unsigned long TimeOut = millis() + 3000;
+    unsigned long TimeOut = millis() + 10000;
 
     char currentChar = '2';
-    byte counter = 0;
+    int counter = 0;
     boolean headerDone = false;
     while (  TimeOut > millis() && _wiflySerial.isConnectionOpen() ) {
       if (  _wiflySerial.available() > 0 ) {
@@ -275,12 +271,14 @@ char* getHttp(char* host, char* url) {
 		 headerDone = (headerDone || currentChar == '{') && currentChar != '}'; 
          if (headerDone) {
             response.write(currentChar);
+			counter++;
          }
       }
 	}
     if (TimeOut < millis()) {
       Serial << F("Timed out!") << host << endl;
     }
+	Serial << "Done loading from " << host << " bytes read:"<< counter << " into buffer " << HTTP_RESPONSE_BUFFER_SIZE << endl; 
 	_wiflySerial.closeConnection();
   }
   else 
