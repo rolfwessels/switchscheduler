@@ -210,7 +210,7 @@ void joinWiflyIfNotUp() {
 }
 
 void  setNTPAndSetTheCurrentTime() {
-  Serial << "setNTPAndSetTheCurrentTime " << ntp_server <<  F("Free memory:") << freeMemory() << endl;
+  Serial << "setNTPAndSetTheCurrentTime " << ntp_server <<  F(" Free memory:") << freeMemory() << endl;
   
   _wiflySerial.setNTP(ntp_server); 
   _wiflySerial.setNTP_Update_Frequency("15");
