@@ -2,12 +2,12 @@
 module cilinder()
 {
 	depth = 4.5;
-	diameter = 3.3;
+	diameter = 3.2;
 	dw = depth/2;
 	dwI = dw/2;
 
 	armDepth = depth/1.5;
-	armHeigth = 20;
+	armHeigth = 18;
 	armWidth = (diameter)*2;
 
 
