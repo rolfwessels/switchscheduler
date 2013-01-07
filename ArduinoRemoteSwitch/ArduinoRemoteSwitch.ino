@@ -9,14 +9,15 @@
 #include "MemoryFree.h"
 #include "Credentials.h"
 
-#define REQUEST_BUFFER_SIZE 150
+#define REQUEST_BUFFER_SIZE 110
 #define HTTP_RESPONSE_BUFFER_SIZE 200
 
 #define DAYS 7
 #define SCHEDULEBLOCKS 24
 #define HOURFALSE 255
-#define SHEDULE_DOWNLOAD_SCHEDULE 20//300
-#define SHEDULE_CHECK_SCHEDULE 5
+#define SHEDULE_DOWNLOAD_SCHEDULE 29 
+#define SHEDULE_CHECK_SCHEDULE 5 
+#define SHEDULE_SETTIME 2
 
 #define SettingsFullUrl "https://dl.dropbox.com/u/1343111/ServerTimer/autoSwitchSettings.txt"
 #define SETTINGS_HOST "dl.dropbox.com"
@@ -34,6 +35,7 @@ byte _onHour = HOURFALSE;
 String _mac; 
 unsigned long _nextScheduleCheck = 0;
 unsigned long _nextDownload = 0;
+unsigned long _nextSetTime = 0;
 int pinLed = 13;
 int pinServo = 12;
 // Arduino       _wiflySerial
@@ -52,6 +54,7 @@ void setup() {
 	_servo.attach(pinServo);
 	_servo.setMaximumPulse(2200);
 	switchServo(false);
+	Serial << "--------------------------------------------- " <<  F("Free memory:") << freeMemory() << endl;
 }
 
 
@@ -67,15 +70,21 @@ void loop() {
 
   // download a schedule every 15 minutes
   if (millis() > _nextDownload) {
-	   connectToWiFly();
-	   downloadNewSchedule();
-	   _nextDownload = millis() + (SHEDULE_DOWNLOAD_SCHEDULE * 1000);
+	  _nextDownload = millis() + (SHEDULE_DOWNLOAD_SCHEDULE * 1000);
+		connectToWiFly();
+		if (millis() > _nextSetTime) {
+			setNTPAndSetTheCurrentTime();
+			_nextSetTime = millis() + (SHEDULE_SETTIME * 1000);
+		}
+		downloadNewSchedule();
+		
   }
 
   // check the schedule every 5 seconds
   if (millis() > _nextScheduleCheck) {
-	  checkScheduleAndUpdateSwitch();
 	  _nextScheduleCheck = millis() + (SHEDULE_CHECK_SCHEDULE * 1000);
+	  checkScheduleAndUpdateSwitch();
+	  
   }
     
   delay(50);
@@ -177,7 +186,7 @@ void connectToWiFly() {
 	Serial << F("Starting _wiflySerial ") <<  _wiflySerial.getLibraryVersion(bufRequest, REQUEST_BUFFER_SIZE) << " on " << _mac  << endl;
 	
 	joinWiflyIfNotUp();
-	setNTPAndSetTheCurrentTime();
+	
 	setWelcomeText();
 	_wiflySerial.closeConnection();
   
@@ -224,8 +233,9 @@ void  setNTPAndSetTheCurrentTime() {
   Serial << "setNTPAndSetTheCurrentTime " << ntp_server <<  F(" Free memory:") << freeMemory() << endl;
   
   _wiflySerial.setNTP(ntp_server); 
-  _wiflySerial.setNTP_Update_Frequency("15");
+  _wiflySerial.setNTP_Update_Frequency("1");
   _wiflySerial.setNTP_UTC_Offset(2);
+  _wiflySerial.SendCommand("time",">", bufResponse, HTTP_RESPONSE_BUFFER_SIZE);
   setTime(_wiflySerial.getTime());
   Serial << F("DateTime: ") << year() << "-" << month() << "-" << day() << " " << _DEC(hour()) << ":" << minute() << ":" << second() << endl;
   setSyncProvider( getSyncProvider );
