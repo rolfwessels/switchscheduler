@@ -1,4 +1,3 @@
-#include <SoftwareServo.h>
 #include <Arduino.h> 
 #include <Time.h>
 #include <SoftwareSerial.h>
@@ -26,8 +25,7 @@
 #define SETTINGS_HOST "dl.dropbox.com"
 //#define SETTINGS_HOST "23.21.195.136"
 #define SettingsUrl "/u/1343111/ServerTimer/autoSwitchSettings.txt"
-#define SERVO_LOW 100
-#define SERVO_HIGH 150
+
 
 char bufRequest[REQUEST_BUFFER_SIZE];
 char bufResponse[HTTP_RESPONSE_BUFFER_SIZE];
@@ -39,23 +37,20 @@ String _mac;
 
 bool isFirstRun = true;
 int pinLed = 13;
-int pinServo = 12;
+int pinRelay = 12;
 // Arduino       _wiflySerial
 //  2 - receive  TX   (Send from _wiflySerial, Receive to Arduino)
 //  3 - send     RX   (Send from Arduino, Receive to _wiflySerial) 
 WiFlySerial _wiflySerial(2,3); 
-SoftwareServo _servo; 
 char chOut; 
-
 
 
 // the setup routine runs once when you press reset:
 void setup() {
 	Serial.begin(9600);
 	pinMode(pinLed, OUTPUT);
-	_servo.attach(pinServo);
-	_servo.setMaximumPulse(2200);
-	switchServo(false);
+	pinMode(pinRelay, OUTPUT);
+	switchRelay(false);
 	Serial << "--------------------------------------------- " <<  F("Free memory:") << freeMemory() << endl;
 }
 
@@ -84,9 +79,8 @@ void loop() {
 	  checkScheduleAndUpdateSwitch();
 	  
   }
-  isFirstRun = false;
+  
   delay(1000);
-  SoftwareServo::refresh();
 } 
 
 
@@ -98,29 +92,28 @@ void downloadNewSchedule() {
 	checkScheduleAndUpdateSwitch();
 }
 
-void switchServo(bool value) {
+void switchRelay(bool value) {
 	if (_servoState != value) {
 		_servoState = value;
 		
 		if (_servoState) {
 			digitalWrite(pinLed, HIGH);
-			_servo.write(SERVO_LOW); 
+			digitalWrite(pinRelay, HIGH);
 		}
 		else {
 			digitalWrite(pinLed, LOW);
-			_servo.write(SERVO_HIGH); 
+			digitalWrite(pinRelay, HIGH);
 			// reset the on hour value so that it does not repeat daily
 			_onHour = HOURFALSE;
 		}
-		
-		Serial << "Servo is now " << _servoState << endl;
+		Serial << "Relay is now " << _servoState << endl;
 	}
 }
 
 void checkScheduleAndUpdateSwitch() {
   bool isCurrentlyOn = _onHour == hour() || getSchedule(weekday()-1,hour());
   Serial << "Day:" <<weekday()-1 << "[" << weekday()-1 << "] Hour:" << hour() << ":" << minute() << ":" << second()  << " IsOn:" << isCurrentlyOn  << endl;
-  switchServo(isCurrentlyOn);
+  switchRelay(isCurrentlyOn);
 }
 
 void checkSchedule() {
@@ -144,6 +137,7 @@ void parseSchedule(char* scheduleString) {
 		Serial << "Invalid scheduleString" << endl;
 		return;
 	}
+	isFirstRun = false;
 	bool hOn;
 	if (parseScheduleChar(scheduleString,pointer++)) {
 		_onHour =  hour();
