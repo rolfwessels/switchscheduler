@@ -9,14 +9,17 @@
 #include "MemoryFree.h"
 #include "Credentials.h"
 
-#define REQUEST_BUFFER_SIZE 110
+#define REQUEST_BUFFER_SIZE 150
 #define HTTP_RESPONSE_BUFFER_SIZE 200
 
 #define DAYS 7
 #define SCHEDULEBLOCKS 24
 #define HOURFALSE 255
-#define SHEDULE_DOWNLOAD_SCHEDULE 29 
+//time in minutes
+#define SHEDULE_DOWNLOAD_SCHEDULE 1 
+//time in seconds
 #define SHEDULE_CHECK_SCHEDULE 5 
+//time in hours
 #define SHEDULE_SETTIME 2
 
 #define SettingsFullUrl "https://dl.dropbox.com/u/1343111/ServerTimer/autoSwitchSettings.txt"
@@ -33,9 +36,8 @@ bool _daysSchedule[DAYS*SCHEDULEBLOCKS] = {false};
 bool _servoState = false;
 byte _onHour = HOURFALSE;
 String _mac; 
-unsigned long _nextScheduleCheck = 0;
-unsigned long _nextDownload = 0;
-unsigned long _nextSetTime = 0;
+
+bool isFirstRun = true;
 int pinLed = 13;
 int pinServo = 12;
 // Arduino       _wiflySerial
@@ -69,25 +71,21 @@ void loop() {
   }
 
   // download a schedule every 15 minutes
-  if (millis() > _nextDownload) {
-	  _nextDownload = millis() + (SHEDULE_DOWNLOAD_SCHEDULE * 1000);
+  if (isFirstRun || ((minute() % SHEDULE_DOWNLOAD_SCHEDULE == 0) && (second() == 0) )) {
 		connectToWiFly();
-		if (millis() > _nextSetTime) {
+		if (isFirstRun || ( (hour() % SHEDULE_SETTIME == 0) && (minute() == 0)) ) {
 			setNTPAndSetTheCurrentTime();
-			_nextSetTime = millis() + (SHEDULE_SETTIME * 1000);
 		}
 		downloadNewSchedule();
-		
   }
 
   // check the schedule every 5 seconds
-  if (millis() > _nextScheduleCheck) {
-	  _nextScheduleCheck = millis() + (SHEDULE_CHECK_SCHEDULE * 1000);
+  if (isFirstRun || ((second() % SHEDULE_CHECK_SCHEDULE == 0))) {
 	  checkScheduleAndUpdateSwitch();
 	  
   }
-    
-  delay(50);
+  isFirstRun = false;
+  delay(1000);
   SoftwareServo::refresh();
 } 
 
@@ -140,6 +138,7 @@ void checkSchedule() {
 
 void parseSchedule(char* scheduleString) {
 	Serial << "parseSchedule " <<  F("Free memory:") << freeMemory() << endl;
+	//Serial << "---" << scheduleString << "---" << endl;
 	byte pointer = 0; // ship first char
 	if (scheduleString[pointer++] != '{') {
 		Serial << "Invalid scheduleString" << endl;
@@ -281,7 +280,7 @@ char* getHttp(char* host, char* url) {
     _wiflySerial <<  (const char*) strRequest << endl; 
     
     // Show server response
-    unsigned long TimeOut = millis() + 10000;
+    unsigned long TimeOut = millis() + 30000;
 
     char currentChar = '2';
     int counter = 0;
