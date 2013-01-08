@@ -27,6 +27,8 @@ Missing bits
 - Togle the 12v relay
 - Installing the relay
 - Create instructable
+- Store schedule file on sd card for offline scheduling
+
 
 
 Component list
@@ -39,7 +41,9 @@ Component list
 - 1k resistor
 - 10k resistor
 - transistor [pn2222A]
-- usb power supply
+- power supply (12V)
+
+![Alt text](https://github.com/rolfwessels/switchscheduler/raw/master/Photos/12vRelayBoard_schem.jpg "The circuit")
 
 
 Required Arduino libraries
@@ -55,35 +59,5 @@ Time
 TimeAlarms
 WiFlySerial
 ```
+All the arduino code is stored in folder ArduinoRemoteSwitch
 
-
-
-How to test your wifly connection using USB
-==================================================
-Connect to the wifly to USD
-Telnet to the wifly:
-Send commands:
-```
-$$$  //Responds with CMD
-scan 30 // scans for networks
-join # 3        // Join the third network
-
-// Below sets the auth to | WPA1 | channel 11 | password sogaanditmaar | join on connection | ssid | joins pings and saves connection
-set wlan auth 3
-set wlan channel 11 
-set wlan pass sogaanditmaar     
-set wlan join 1
-set wlan ssid CC902
-join CC902
-ping 74.125.233.5 2
-save
-reboot
-
-set time address 129.6.15.28 
-set time zone 22
-set time enable 1 
-time
-show time
-save
-reboot
-```
