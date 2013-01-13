@@ -1,0 +1,465 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"sc",
+				"schedule_server"
+			],
+			[
+				"set",
+				"SETLOCAL"
+			],
+			[
+				"ser",
+				"Serial"
+			],
+			[
+				"sett",
+				"SettingsUrl"
+			],
+			[
+				"Set",
+				"SettingsHost"
+			],
+			[
+				"en",
+				"endl"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/C/Dev/Projects/Home/SwitchTimer/schedule_server/README.md",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "README.md",
+			"settings":
+			{
+				"buffer_size": 413,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/schedule_service/handler.clj",
+			"settings":
+			{
+				"buffer_size": 263,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "project.clj",
+			"settings":
+			{
+				"buffer_size": 348,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/Users/Rolf/AppData/Roaming/Sublime Text 2/Packages/User/lein ring server.sublime-build",
+			"settings":
+			{
+				"buffer_size": 810,
+				"line_ending": "Windows",
+				"name": "untitled.sublime-build"
+			}
+		}
+	],
+	"build_system": "Packages/User/lein ring server.sublime-build",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"replc",
+				"SublimeREPL: Clojure"
+			],
+			[
+				"Package Control: in",
+				"Package Control: Install Package"
+			],
+			[
+				"ard",
+				"Set Syntax: Arduino"
+			],
+			[
+				"Package Control: re",
+				"Package Control: Remove Package"
+			],
+			[
+				"pacin",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Add Repository"
+			],
+			[
+				"Package Control: add",
+				"Package Control: Add Repository"
+			],
+			[
+				"upda",
+				"Package Control: Upgrade Package"
+			],
+			[
+				"Package Control: list Package",
+				"Package Control: List Packages"
+			]
+		],
+		"width": 400.0
+	},
+	"console":
+	{
+		"height": 266.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/Rolf/AppData/Roaming/Sublime Text 2/Packages/User/SublimeREPL.sublime-settings",
+		"/C/Users/Rolf/AppData/Roaming/Sublime Text 2/Packages/SublimeREPL/SublimeREPL.sublime-settings",
+		"/C/Dev/Projects/Home/SwitchTimer/schedule_server/src/schedule_server/core.clj",
+		"/C/Dev/Projects/Home/SwitchTimer/README.md",
+		"/C/Dev/Projects/Home/SwitchTimer/schedule_server/README.md",
+		"/C/Dev/Projects/Home/lazycowprojects/SwitchTimer/ServoTimer/MemoryFree.cpp",
+		"/C/Dev/Projects/Home/lazycowprojects/SwitchTimer/ServoTimer/MemoryFree.h",
+		"/C/Dev/Projects/Home/SwitchTimer/WiflyTesting.md",
+		"/C/Dev/Projects/Home/lazycowprojects/SwitchTimer/README.md",
+		"/C/Dev/Projects/Home/lazycowprojects/SwitchTimer/ServoTimer/ServoTimer.ino",
+		"/C/Dev/Projects/Home/lazycowprojects/SwitchTimer/ArduinoRemoteSwitch/ArduinoRemoteSwitch - Copy.ino",
+		"/C/Dev/Projects/Home/lazycowprojects/SwitchTimer/WebClientGetPost/WebClientGetPost.ino",
+		"/C/Dev/Projects/Home/lazycowprojects/SwitchTimer/WebTimeA1/WebTimeA1.ino",
+		"/C/Dev/Projects/Home/lazycowprojects/SwitchTimer/ReadMe.txt",
+		"/C/Dev/Projects/Home/lazycowprojects/SwitchTimer/WebClientGetPost/Credentials.h",
+		"/C/Dev/Projects/Home/lazycowprojects/SwitchTimer/WiFlyTest/WiFlyTest.ino",
+		"/C/Dev/Projects/Home/lazycowprojects/SwitchTimer/ArduinoLibs/WiFlySerial/WiFlySerial.h",
+		"/C/Dev/Projects/Home/lazycowprojects/SwitchTimer/ArduinoLibs/WiFlySerial/WiFlySerial.cpp",
+		"/C/Dev/Projects/Home/lazycowprojects/SwitchTimer/ServoTimer/Credentials.h",
+		"/C/Dev/Projects/Home/lazycowprojects/SwitchTimer/WebTimeA1/Credentials.h",
+		"/C/Dev/Projects/Home/lazycowprojects/SwitchTimer/WiFlyTest/Credentials.h",
+		"/C/Dev/Projects/Home/lazycowprojects/SwitchTimer/ServoTimer/ServoTimer_ino/ServoTimer_ino.ino",
+		"/C/Users/Rolf/AppData/Roaming/Sublime Text 2/Packages/Package Control/Package Control.sublime-settings"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"\n",
+			"sogaanditmaar",
+			"getSchedule",
+			"checkScheduleAndUpdateSwitch",
+			"ParseScheduleChar",
+			"CheckSchedule",
+			"CheckScheduleAndUpdateSwitch",
+			"DownloadNewSchedule",
+			"setNTPAndSetTheCurrentTime",
+			"ParseSchedule",
+			"connectToWiFlyAndGetTime",
+			"connectToWiFly",
+			"ConnectToWiFly",
+			"ConnectTo_wiflySerial",
+			"connectTo_wiflySerial",
+			"WiFly",
+			"WIFLY",
+			"WiFly",
+			"WIFLY",
+			"WiFly",
+			"WIFLY",
+			"WiFly",
+			"BODY_BUFFER_SIZE",
+			"SettingsHost",
+			"mystring",
+			"MY_SERVER_GET",
+			"REQUEST_BUFFER_SIZE",
+			"GetBuffer_P",
+			"WT_string_table",
+			"s_WT_HTML_HEAD_04",
+			"wifi",
+			"MY_SERVER_GET",
+			"SettingsUrl",
+			"SettingsUrl\n",
+			"strRequest",
+			"strRequest\n",
+			"strRequest",
+			"Do_POST_Example",
+			"bufTemp",
+			"wifi",
+			"mac",
+			"REQUEST_BUFFER_SIZE",
+			"wifi",
+			"WiFly",
+			"WIFLY",
+			"WiFly",
+			"WIFLY",
+			"WiFly",
+			"WIFLY",
+			"WiFly",
+			"Wifly",
+			"WiFly",
+			"GetSyncTime",
+			"setSyncProvider",
+			"time",
+			"#include <Time.h>Time",
+			"STI_WIFLYDEVICE_SET_NTP",
+			"setNTP",
+			"getTime",
+			"s_WT_MSG_JOIN",
+			"s_WT_MSG_JOIN\n",
+			"Credentials",
+			"cred",
+			"CC902",
+			"XXX",
+			"Reconnect",
+			"READ",
+			"WT_string_table",
+			"WT_string_table\n",
+			"s_WT_MSG_HTTP_READY",
+			"roving1",
+			"Serial",
+			"secondSensor"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 4,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/C/Dev/Projects/Home/SwitchTimer/schedule_server/README.md",
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Markdown/Markdown.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "README.md",
+					"settings":
+					{
+						"buffer_size": 413,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								413,
+								413
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Markdown/Markdown.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/schedule_service/handler.clj",
+					"settings":
+					{
+						"buffer_size": 263,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								263,
+								263
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Clojure/Clojure.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "project.clj",
+					"settings":
+					{
+						"buffer_size": 348,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								348,
+								348
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Clojure/Clojure.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/C/Users/Rolf/AppData/Roaming/Sublime Text 2/Packages/User/lein ring server.sublime-build",
+					"settings":
+					{
+						"buffer_size": 810,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								73,
+								73
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 34.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 118.0
+	},
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true
+}

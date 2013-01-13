@@ -122,7 +122,7 @@ module BoxBottom()
 		translate([boxWidth,boxWidth,boxWidth])
 			cube([width-(boxWidth*2),height-(boxWidth*2),depth-boxWidth+10]);
 		}
-	offset = 4.2;
+	offset = boxWidth+1.2;
 	depthSc = depth-7;
 	translate([offset,offset,depthSc])
 		ScrewHolderAndTaper();
@@ -162,7 +162,7 @@ module BoxTopScrewHoles()
 	height = boxSize[1];
 	depth = boxSize[2];
 
-	offset = 4.2;
+	offset = boxWidth+1.2;
 	depthSc = depth;
 	myheight = boxWidth*2;
 	mod = 1;
@@ -199,7 +199,7 @@ module Box() {
 		color("green") BoxBottom();
 		color("green") PowerHoles();
 	}
-//	translate([20,20,10]) color("lightgreen") BoxTop();
+	translate([0,0,1]) color("lightgreen") BoxTop();
 
 }
 
@@ -208,6 +208,6 @@ arduinoOffsetY = 5;
 arduinoOffset = [16,90,arduinoOffsetY];
 boxSize = [80,110,40];
 
-boxWidth = 3;
+boxWidth = 2;
 translate([0,10,2]) OtherElements();
  Box();
