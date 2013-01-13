@@ -36,10 +36,11 @@ Component list
 
 - arduino uno
 - wifly
+- wifly breakout board
 - Relay [hf18ff]
 - diode [1n4007]
-- 1k resistor
-- 10k resistor
+- 1k resistor (R1)
+- 10k resistor (R2)
 - transistor [pn2222A]
 - power supply (12V)
 
