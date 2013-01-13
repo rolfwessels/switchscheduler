@@ -15,7 +15,7 @@
 #define SCHEDULEBLOCKS 24
 #define HOURFALSE 255
 //time in minutes
-#define SHEDULE_DOWNLOAD_SCHEDULE 1 
+#define SHEDULE_DOWNLOAD_SCHEDULE 10
 //time in seconds
 #define SHEDULE_CHECK_SCHEDULE 5 
 //time in hours
