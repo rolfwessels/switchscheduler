@@ -160,7 +160,7 @@ module BoxTopScrewHoles()
 {
 	width = boxSize[0];
 	height = boxSize[1];
-	depth = boxSize[2];
+	depth = 0;
 
 	offset = boxWidth+1.2;
 	depthSc = depth;
@@ -180,7 +180,7 @@ module BoxTop()
 {
 	width = boxSize[0];
 	height = boxSize[1];
-	depth = boxSize[2];
+	depth = 0;
 	difference() {
 		translate([0,0,depth])
 			cube([width,height,boxWidth]);
@@ -194,20 +194,46 @@ module BoxTop()
 
 
 module Box() {
+	depth = boxSize[2];
 	color("green") BoxScrewHoldes();
 	difference() {
 		color("green") BoxBottom();
 		color("green") PowerHoles();
 	}
-	translate([0,0,1]) color("lightgreen") BoxTop();
+	translate([0,0,depth+1]) color("lightgreen") BoxTop();
 
 }
 
+module FullBoxWithComponents() {
+	translate([0,10,2]) OtherElements();
+	Box();
+}
+
+module BoxBottomOnly() {
+	color("green") BoxScrewHoldes();
+	difference() {
+		color("green") BoxBottom();
+		color("green") PowerHoles();
+	}
+}
+
+module TopOnly() {
+	 color("lightgreen") BoxTop();
+}
+
+//Main settings
 relayOffset = [5,0,0];
 arduinoOffsetY = 5;
 arduinoOffset = [16,90,arduinoOffsetY];
 boxSize = [80,110,40];
-
 boxWidth = 2;
-translate([0,10,2]) OtherElements();
- Box();
+
+// Preview
+FullBoxWithComponents();
+
+// Print 1
+// BoxBottomOnly();
+
+// Print 2
+// TopOnly();
+
