@@ -36,4 +36,6 @@ ssh-keygen -t rsa -f id_rsa
 heroku keys:add "id_rsa.pub"
 heroku create schedule-service
 git push heroku master
+
+heroku logs -n 200
 ```
