@@ -1,0 +1,40 @@
+{
+	"cmd": ["C:\\Chocolatey\\bin\\lein.bat", "compile", ":all"],
+	  "working_dir": "$project_path",
+	  "selector": "source.clojure",
+	  "variants": [
+	    { "cmd": ["C:\\Chocolatey\\bin\\lein.bat", "marg", "-m", "-d", "doc"],
+	      "name": "Lein: Marginalia"
+	    },
+	    { "cmd": ["C:\\Chocolatey\\bin\\lein.bat", "doc"],
+	      "name": "Lein: Codox"
+	    },
+	    { "cmd": ["C:\\Chocolatey\\bin\\lein.bat", "clean"],
+	      "name": "Clean"
+	    },
+	    { "cmd": ["C:\\Chocolatey\\bin\\lein.bat", "run"],
+	      "name": "Run"
+	    },
+	    { "cmd": ["C:\\Chocolatey\\bin\\lein.bat", "test"],
+	      "name": "Test"
+	    },
+	    { "cmd": ["C:\\Chocolatey\\bin\\lein.bat", "retest"],
+	      "name": "Re-test"
+	    },
+	    { "cmd": ["C:\\Chocolatey\\bin\\lein.bat", "uberjar"],
+	      "name": "Uberjar"
+	    },
+	    { "cmd": ["C:\\Chocolatey\\bin\\lein.bat", "jar"],
+	      "name": "Jar"
+	    },
+	    { "cmd": ["C:\\Chocolatey\\bin\\lein.bat", "check"],
+	      "name": "Check"
+	    },
+	    { "cmd": ["C:\\Chocolatey\\bin\\lein.bat", "ring" , "server"],
+	      "name": "RingServer"
+	    },
+	    { "cmd": ["git", "commit" , "-a"],
+	      "name": "gitcommit"
+	    }
+	  ]
+}
