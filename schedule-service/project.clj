@@ -11,5 +11,8 @@
   :main ^:skip-aot schedule-service.handler
   :plugins [[lein-ring "0.8.0"]]
   :ring {:handler schedule-service.handler/app}
-  :profiles {:dev {:dependencies [[ring-mock "0.1.3"]]}}
+  :profiles {:dev {:dependencies [
+    [ring-mock "0.1.3"]
+    [lein-reload "1.0.0"]
+    ]}}
   )

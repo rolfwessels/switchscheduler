@@ -36,8 +36,8 @@ byte _onHour = HOURFALSE;
 String _mac; 
 
 bool isFirstRun = true;
-int pinLed = 13;
-int pinRelay = 12;
+int pinLed = 5;
+int pinRelay = 4;
 // Arduino       _wiflySerial
 //  2 - receive  TX   (Send from _wiflySerial, Receive to Arduino)
 //  3 - send     RX   (Send from Arduino, Receive to _wiflySerial) 
@@ -67,7 +67,9 @@ void loop() {
 
   // download a schedule every 15 minutes
   if (isFirstRun || ((minute() % SHEDULE_DOWNLOAD_SCHEDULE == 0) && (second() == 0) )) {
-		connectToWiFly();
+                if (isFirstRun) fullSetup();		
+                connectToWiFly();
+                
 		if (isFirstRun || ( (hour() % SHEDULE_SETTIME == 0) && (minute() == 0)) ) {
 			setNTPAndSetTheCurrentTime();
 		}
@@ -188,7 +190,7 @@ void connectToWiFly() {
 }
 void fullSetup() {
 	Serial << "Leave:" <<  ssid << _wiflySerial.leave() << endl;
-	_wiflySerial.setAuthMode( WIFLY_AUTH_WPA1_2);
+	_wiflySerial.setAuthMode( WIFLY_AUTH_WPA2_PSK);
 	_wiflySerial.setJoinMode( WIFLY_JOIN_AUTO );
 	_wiflySerial.setChannel("11");
 	_wiflySerial.setDHCPMode( WIFLY_DHCP_ON );

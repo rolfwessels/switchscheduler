@@ -17,16 +17,14 @@
     (is (re-find #"<input" (:body resp)))
     (is (re-find #"mac" (:body resp)))))
 
-
-(deftest view-output-valid
-  (let [resp (routes {:uri "/" :request-method :post
-                       :params {"mac" "0121212"}})]
-    (is (= 200 (:status resp)))
-    (is (re-find #"Welcome 0121212" (:body resp)))))
-
 (deftest file-not-found-valid
   (testing "not-found routes"
     (let [resp (routes (request :get "/invalid"))]
       (is (= (:status resp) 404))
       (is (re-find #"not exist" (:body resp)))
     )))
+
+(deftest save-file
+  (save-schedule "macaddressSameple" "jsoninformation" )
+
+  )

@@ -2,6 +2,8 @@
 
 A Clojure library designed to create a schedule file based on schedule input
 
+To see it in action check out http://schedule-service.herokuapp.com/
+
 ## Prerequisites
 
 You will need [Leiningen][1] 1.7.0 or above installed.
@@ -30,6 +32,9 @@ in schedule-service folder
 git init
 git add .
 git commit -a -m "Initial commit"
+
+install https://toolbelt.heroku.com/
+
 heroku login
 cd C:\Users\yourusername\.ssh
 ssh-keygen -t rsa -f id_rsa

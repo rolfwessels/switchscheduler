@@ -13,7 +13,8 @@ join # 3        // Join the third network
 // Below sets the auth to | WPA1 | channel 11 | password XXXXXXX | join on connection | ssid | joins pings and saves connection
 set wlan auth 3
 set wlan channel 11 
-set wlan pass XXXXXXX     
+set wlan pass XXXXXXX  
+
 set wlan join 1
 set wlan ssid CC902
 join CC902
@@ -29,3 +30,13 @@ show time
 save
 reboot
 ```
+
+scan 30
+join # 1
+set wlan phrase sogaanditmaar
+set wlan auth 2
+set wlan channel 11
+set wlan ssid FlyWi
+leave
+join
+ping 74.125.233.5 2
