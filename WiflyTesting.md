@@ -30,13 +30,3 @@ show time
 save
 reboot
 ```
-
-scan 30
-join # 1
-set wlan phrase sogaanditmaar
-set wlan auth 2
-set wlan channel 11
-set wlan ssid FlyWi
-leave
-join
-ping 74.125.233.5 2
