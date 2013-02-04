@@ -12,3 +12,8 @@ kak
 Temp/*
 /3dPrintedParts/AutoSave_ServoArm.skp
 /3dPrintedParts/ServoArm.gcode
+[Bb]in
+[Oo]bj
+*.suo
+*.user
+packages
