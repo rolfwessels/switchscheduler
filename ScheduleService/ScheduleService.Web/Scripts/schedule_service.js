@@ -4,7 +4,7 @@ $(document).ready(function() {
 	$('#mac-input').submit(function() 
 	{
 		pageData.macaddress  = $('#mac').val();
-		loadPage('static/schedule-setup.html',scheduleSetupLoaded);
+		loadPage('static/schedule-setup.html?2',scheduleSetupLoaded);
 		return false;
 	});
 //	pageData.macaddress  = $('#mac').val();
@@ -71,17 +71,38 @@ function loadPage(pageUrl,callBack) {
 function scheduleSetupLoaded() {
     $('.switch')['switch']();
     var url = "/api/schedule/" + pageData.macaddress.replace(/:/g, "");
-    $('#get-button').click(function () {
-        $.ajax({
-            url: url,
-            type: "GET",
-            dataType: "text",
-            success: function (data) {
-                console.log("GET Data (Text):");
-                console.log(data);
-            }
-        });
+    $('#btn-all').click(function () {
+        for (var day = 0; day < 7; day++) {
+            for (var hour = 0; hour < 24; hour++) {
+                $('#check_' + day + '_' + hour).prop('checked', true);
+            };
+        };
     });
+
+    $('#btn-none').click(function () {
+        for (var day = 0; day < 7; day++) {
+            for (var hour = 0; hour < 24; hour++) {
+                $('#check_' + day + '_' + hour).prop('checked', false);
+            };
+        };
+    });
+
+    $('#btn-morning').click(function () {
+        for (var day = 0; day < 7; day++) {
+            for (var hour = 0; hour < 24; hour++) {
+                $('#check_' + day + '_' + hour).prop('checked', hour == 6);
+            };
+        };
+    });
+
+    $('#btn-evening').click(function () {
+        for (var day = 0; day < 7; day++) {
+            for (var hour = 0; hour < 24; hour++) {
+                $('#check_' + day + '_' + hour).prop('checked', hour == 18);
+            };
+        };
+    });
+   
     $('.dataTable').hide();
     console.log("Load schedule setup data");
     console.log("GET: "+ url);
@@ -153,7 +174,7 @@ function buildFormFromJson(json) {
 function buildJsonFromForm() {
     var result = {};
     result.MacAddress = pageData.macaddress;
-	if ($('#on-now').attr('checked')) 
+    if ($('#on-now').prop('checked'))
 	{
 	    var date = new Date();
 		date.setMinutes(date.getMinutes()+60);
@@ -166,7 +187,7 @@ function buildJsonFromForm() {
 		for (var day = 0; day < 7; day++) {
 			var hours = [];
 			for (var hour = 0; hour < 24; hour++) {
-				if ($('#check_'+day+'_'+hour).attr('checked')) {
+			    if ($('#check_' + day + '_' + hour).prop('checked')) {
 					hours.push(hour);
 				}
 			};

@@ -13,6 +13,7 @@ namespace ScheduleService.Web.Tests.Core
 {
     [TestFixture]
     [Category("Integration")]
+    [Ignore]
     public class MongoDbContainerTests
     {
         private readonly MongoDbContainer _mongoDbContainer;

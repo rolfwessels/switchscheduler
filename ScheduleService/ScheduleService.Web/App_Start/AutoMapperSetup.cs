@@ -12,14 +12,15 @@ namespace ScheduleService.Web.App_Start
         public static void Register()
         {
             Mapper.CreateMap<ScheduleDb, ScheduleModel>()
-                  .ForMember(x => x.RunTillUtc, opt => opt.MapFrom(x => x.RunTill.ToUniversalTime()));
+                  .ForMember(x => x.RunTillUtc, opt => opt.MapFrom(x => x.RunTill.ToUniversalTime()))
+                  ;
             Mapper.CreateMap<ScheduleModel, ScheduleDb>()
                   .ForMember(x => x.Id, opt => opt.Ignore())
                   .ForMember(x => x.CreateDateTime, opt => opt.Ignore())
                   .ForMember(x => x.UpdateDateTime, opt => opt.Ignore())
-                  .ForMember(x => x.RunTill,
-                             opt =>
-                             opt.MapFrom(
+                  .ForMember(x => x.LastConnectTime, opt => opt.Ignore())
+                  .ForMember(x => x.LastNotifyTime, opt => opt.Ignore())
+                  .ForMember(x => x .RunTill, opt => opt.MapFrom(
                                  x =>
                                  string.IsNullOrEmpty(x.RunTillUtc)
                                      ? new DateTime(1970)

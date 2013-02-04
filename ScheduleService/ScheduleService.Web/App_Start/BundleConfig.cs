@@ -8,22 +8,18 @@ namespace ScheduleService.Web.App_Start
         public static void RegisterBundles(BundleCollection bundles)
         {
             
-
             bundles.Add(new ScriptBundle("~/js").Include(
                 "~/Scripts/jquery-{version}.js",
-//                "~/Scripts/jquery-migrate-{version}.js",
-                "~/Scripts/bootstrap.js",
+                "~/Scripts/jquery-migrate-{version}.js",
+//                "~/Scripts/bootstrap.js",
 //                "~/Scripts/jquery.validate.js",
 //                "~/scripts/jquery.validate.unobtrusive.js",
 //                "~/Scripts/jquery.validate.unobtrusive-custom-for-bootstrap.js",
 //                "~/Scripts/jquery.validate.unobtrusive-custom-for-bootstrap.js",
-                "~/Scripts/jquery.tmpl.js",
-                "~/Scripts/jquery.tmplPlus.js",
-                "~/Scripts/jquery.switch.js",
+//                "~/Scripts/jquery.tmpl.js",
+//                "~/Scripts/jquery.tmplPlus.js",
+//                "~/Scripts/jquery.switch.js",
                 "~/Scripts/schedule_service.js"
-
-                
-                
                 ));
 
             bundles.Add(new StyleBundle("~/content/css").Include(
