@@ -1,43 +1,50 @@
 <form action="/" method="post" id="schedulesetup">
-	<h2 class="form-signin-heading">
-		Welcome [${macaddress}]
-	</h2>
-	<table>
-	<tr>
-		<td class="day-title">Run for next hour</td>
-	    <td colspan="24" >
+    <h2 class="form-signin-heading">
+        Welcome [${macaddress}]
+    </h2>
+    <table class="dataTable">
+        <tr>
+            <td class="day-title">Run for next hour</td>
+            <td colspan="24" >
 	        
-	        <div id="toggle-on-now" class="switch">
-                <input id="on-now" type="checkbox" name="now" value="1" checked="checked">
-            </div>
-	    </td>
-	</tr>
-	<tr>
-		<td class="day-title"></td>
-		{{for(var hour=0;hour<24;hour++)}}
-		<td class="hr-title">
-			${hour}
-		</td>
-		{{/for}}
-	</tr>
-	{{var days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];}}
+                <div id="toggle-on-now" class="switch">
+                    <input id="on-now" type="checkbox" name="now" value="1" checked="checked">
+                </div>
+            </td>
+        </tr>
+        <tr >
+		    <td class="day-title">Last connected</td>
+	        <td colspan="24" >
+	        
+	            <div id="lastConnected"></div>
+	        </td>
+	        </tr>
+        <tr>
+            <td class="day-title"></td>
+            {{for(var hour=0;hour<24;hour++)}}
+            <td class="hr-title">
+                ${hour}
+            </td>
+            {{/for}}
+        </tr>
+        {{var days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];}}
 	
-	{{for(var day=0;day<7;day++)}}
-	<tr>
-		<td class="day-title">${days[day]}</td>
-		{{for(var hour=0;hour<24;hour++)}}
-		<td class="hr-toggle">
-			<input  
-				type="checkbox"
-				id="check_${day}_${hour}" 
-				name="check[${day}][${hour}]" 
-				value="1" 
-				checked="checked" 
-				title="${hour}:00" />
-		</td>
-		{{/for}}
-    </tr>
-    {{/for}}
+        {{for(var day=0;day<7;day++)}}
+        <tr>
+            <td class="day-title">${days[day]}</td>
+            {{for(var hour=0;hour<24;hour++)}}
+            <td class="hr-toggle">
+                <input  
+                    type="checkbox"
+                    id="check_${day}_${hour}" 
+                    name="check[${day}][${hour}]" 
+                    value="1" 
+                    checked="checked" 
+                    title="${hour}:00" />
+            </td>
+            {{/for}}
+        </tr>
+        {{/for}}
     </table>
     <br />
     <button class="btn btn-large btn-primary" type="submit">Update</button>

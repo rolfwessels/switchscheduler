@@ -17,12 +17,12 @@ namespace ScheduleService.Web.App_Start
 {
     public class PlayTextFormatter : MediaTypeFormatter
     {
-        private static readonly ILog Log =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private static MongoContainer _mongoContainer = new MongoContainer("mongodb://appharbor_f9a8cacb-f25c-48f1-abee-6150ab31592d:g9fchakr68ijuhclojdst3uj76@ds037007.mongolab.com:37007/appharbor_f9a8cacb-f25c-48f1-abee-6150ab31592d");
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly IMongoDbContainer _mongoDbContainer;
 
-        public PlayTextFormatter()
+        public PlayTextFormatter(IMongoDbContainer mongoDbContainer)
         {
+            _mongoDbContainer = mongoDbContainer;
             SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/plain"));
         }
 
@@ -58,12 +58,12 @@ namespace ScheduleService.Web.App_Start
                     Task.Factory.StartNew(() =>
                         {
                             //save the LastConnectTime
-                            var scheduleDb = _mongoContainer.Schedule.Find(scheduleModel.QueryByMacAddress()).FirstOrDefault();
+                            var scheduleDb = _mongoDbContainer.Schedule.Find(scheduleModel.QueryByMacAddress()).FirstOrDefault();
                             if (scheduleDb != null)
                             {
                                 Log.Debug(string.Format("PlayTextFormatter:WriteToStreamAsync Update last connect time for {0}", scheduleDb.MacAddress));
                                 scheduleDb.LastConnectTime = DateTime.Now;
-                                _mongoContainer.Schedule.Save(scheduleDb);
+                                _mongoDbContainer.Schedule.Save(scheduleDb);
                             }
                         });
                 }

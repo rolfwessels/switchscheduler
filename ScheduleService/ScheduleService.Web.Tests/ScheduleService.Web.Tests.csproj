@@ -63,7 +63,7 @@
       <SubType>Designer</SubType>
     </None>
     <Compile Include="Core\MappingTests.cs" />
-    <Compile Include="Core\MongoDbTests.cs" />
+    <Compile Include="Core\MongoDbContainerTests.cs" />
     <Compile Include="Core\ScheduleHelperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

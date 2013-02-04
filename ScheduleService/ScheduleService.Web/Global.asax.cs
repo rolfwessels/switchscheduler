@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Autofac;
 using ScheduleService.Web.App_Start;
 
 namespace ScheduleService.Web
@@ -25,8 +26,8 @@ namespace ScheduleService.Web
             ExampleLayoutsRouteConfig.RegisterRoutes(RouteTable.Routes);
             Log4NetTraceListener.Register();
             AutoMapperSetup.Register();
-
-            GlobalConfiguration.Configuration.Formatters.Insert(0, new PlayTextFormatter());
+            IocContainer.Register();
+            GlobalConfiguration.Configuration.Formatters.Insert(0, IocContainer.Current.Resolve<PlayTextFormatter>());
 
         }
     }

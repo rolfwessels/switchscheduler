@@ -5,7 +5,7 @@ using ScheduleService.Web.Models.Db;
 
 namespace ScheduleService.Web.Core
 {
-    public class MongoContainer
+    public class MongoDbContainer : IMongoDbContainer
     {
         private const string TableScheduleModel = "Schedule";
         private readonly string _connectionString;
@@ -15,12 +15,12 @@ namespace ScheduleService.Web.Core
         private readonly MongoDatabase _database;
         private readonly MongoCollection<ScheduleDb> _schedule;
 
-        public MongoContainer() : this(ConfigurationManager.AppSettings.Get("MONGOLAB_URI"))
+        public MongoDbContainer() : this(ConfigurationManager.AppSettings.Get("MONGOLAB_URI"))
         {
         
         }
 
-        public MongoContainer(string connectionString)
+        public MongoDbContainer(string connectionString)
         {
             _connectionString = connectionString;
             _url = new MongoUrl(connectionString);

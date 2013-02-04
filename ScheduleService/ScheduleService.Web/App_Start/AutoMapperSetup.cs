@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using AutoMapper;
+using ScheduleService.Web.Controllers;
 using ScheduleService.Web.Models;
 using ScheduleService.Web.Models.Db;
 
