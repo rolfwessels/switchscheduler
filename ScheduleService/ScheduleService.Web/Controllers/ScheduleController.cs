@@ -4,7 +4,9 @@ using System.Linq;
 using System.Reflection;
 using System.Web.Http;
 using AutoMapper;
+using Autofac;
 using MongoDB.Driver.Linq;
+using ScheduleService.Web.App_Start;
 using ScheduleService.Web.Core;
 using ScheduleService.Web.Models;
 using ScheduleService.Web.Models.Db;
@@ -17,9 +19,14 @@ namespace ScheduleService.Web.Controllers
         private readonly IMongoDbContainer _mongoDbContainer;
         private static readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public ScheduleController(IMongoDbContainer mongoDbContainer)
+//        public ScheduleController()
+//            : this(IocContainer.Current.Resolve<IMongoDbContainer>())
+//        {
+//        }
+
+        public ScheduleController(IMongoDbContainer mongoDbContainer) 
         {
-            _mongoDbContainer = mongoDbContainer;
+             _mongoDbContainer = mongoDbContainer;
         }
 
         // GET api/schedule

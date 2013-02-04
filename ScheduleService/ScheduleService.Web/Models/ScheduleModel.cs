@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using MongoDB.Driver;
-using MongoDB.Driver.Builders;
 using ScheduleService.Web.Models.Db;
 
 namespace ScheduleService.Web.Models

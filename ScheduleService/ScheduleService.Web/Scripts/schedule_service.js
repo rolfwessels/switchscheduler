@@ -7,8 +7,8 @@ $(document).ready(function() {
 		loadPage('static/schedule-setup.html',scheduleSetupLoaded);
 		return false;
 	});
-	pageData.macaddress  = $('#mac').val();
-	loadPage('static/schedule-setup.html?12', scheduleSetupLoaded);
+//	pageData.macaddress  = $('#mac').val();
+//	loadPage('static/schedule-setup.html?12', scheduleSetupLoaded);
 
 });
 
@@ -200,6 +200,9 @@ function ReableTime(inTime) {
     var seconds = milliseconds / 1000;
     var numyears = Math.floor(seconds / 31536000);
     var postFix = " ago";
+    if (numyears > 10) {
+        return "not yet connected";
+    }
     if (numyears) {
         return numyears + ' year' + ((numyears > 1) ? 's' : '') + postFix;
     }

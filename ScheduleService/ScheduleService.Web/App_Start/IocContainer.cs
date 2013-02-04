@@ -1,8 +1,13 @@
-﻿using System.Web.Mvc;
+﻿using System.Reflection;
+using System.Web.Http;
+using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
+using Autofac.Integration.WebApi;
 using ScheduleService.Web.Controllers;
 using ScheduleService.Web.Core;
+using log4net.Core;
+using log4net.Repository.Hierarchy;
 
 namespace ScheduleService.Web.App_Start
 {
@@ -13,23 +18,26 @@ namespace ScheduleService.Web.App_Start
         public static void Register()
         {
             var builder = new ContainerBuilder();
-            RegisterControllers(builder);
             RegisterTools(builder);
-            
+            RegisterControllers(builder);
             _current = builder.Build();
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(_current));   
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(_current));
+            GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(_current);
         }
 
         private static void RegisterTools(ContainerBuilder builder)
         {
             builder.RegisterType<MongoDbContainer>().As<IMongoDbContainer>();
             builder.RegisterType<PlayTextFormatter>();
+            builder.RegisterType<ScheduleController>();
         }
 
         private static void RegisterControllers(ContainerBuilder builder)
         {
-            builder.RegisterControllers(typeof(AutoMapperSetup).Assembly);
-            builder.RegisterType<ScheduleController>();
+            builder.RegisterControllers(Assembly.GetExecutingAssembly());
+            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+            builder.RegisterApiControllers(typeof(ScheduleController).Assembly);
+            
         }
 
         public static IContainer Current

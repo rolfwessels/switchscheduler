@@ -18,6 +18,7 @@ namespace ScheduleService.Web
     {
         protected void Application_Start()
         {
+            IocContainer.Register();
             AreaRegistration.RegisterAllAreas();
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
@@ -26,7 +27,7 @@ namespace ScheduleService.Web
             ExampleLayoutsRouteConfig.RegisterRoutes(RouteTable.Routes);
             Log4NetTraceListener.Register();
             AutoMapperSetup.Register();
-            IocContainer.Register();
+            
             GlobalConfiguration.Configuration.Formatters.Insert(0, IocContainer.Current.Resolve<PlayTextFormatter>());
 
         }

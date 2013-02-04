@@ -1,4 +1,3 @@
-﻿using System;
 using AutoMapper;
 using FluentAssertions;
 using NUnit.Framework;
@@ -6,16 +5,18 @@ using ScheduleService.Web.App_Start;
 using ScheduleService.Web.Models;
 using ScheduleService.Web.Models.Db;
 
-namespace ScheduleService.Web.Tests.Core
+namespace ScheduleService.Web.Tests.App_Start
 {
     [TestFixture]
-    public class MappingTests
+    public class AutoMapperSetupTests 
     {
-        public MappingTests()
+
+        public AutoMapperSetupTests()
         {
             AutoMapperSetup.Register();
         }
 
+ 
         [Test]
         public void AssertConfigurationIsValid()
         {
@@ -23,6 +24,7 @@ namespace ScheduleService.Web.Tests.Core
         }
 
         [Test]
+        [Ignore]
         public void ScheduleModelScheduleDb()
         {
             const string runTill = "Sun, 03 Feb 2013 23:05:31 GMT";
@@ -37,8 +39,5 @@ namespace ScheduleService.Web.Tests.Core
             scheduleModel.RunTillUtc.Should().Contain("03/02/2013");
 
         }
-
-
     }
-
 }
