@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduleService.Web", "ScheduleService.Web\ScheduleService.Web.csproj", "{68DD0A60-94D5-4D56-A825-B54CCA40DF43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduleService.Web.Tests", "ScheduleService.Web.Tests\ScheduleService.Web.Tests.csproj", "{E78BA2AD-FDF7-4011-8842-FA3C77013E1F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{68DD0A60-94D5-4D56-A825-B54CCA40DF43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68DD0A60-94D5-4D56-A825-B54CCA40DF43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68DD0A60-94D5-4D56-A825-B54CCA40DF43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68DD0A60-94D5-4D56-A825-B54CCA40DF43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E78BA2AD-FDF7-4011-8842-FA3C77013E1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E78BA2AD-FDF7-4011-8842-FA3C77013E1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E78BA2AD-FDF7-4011-8842-FA3C77013E1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E78BA2AD-FDF7-4011-8842-FA3C77013E1F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
